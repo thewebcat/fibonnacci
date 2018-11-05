@@ -52,3 +52,15 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+
+  test:
+    image: "__C_PROJECT_NAME__-virtualenv:latest"
+    environment:
+      <<: *global-environment
+    command: ["echo", "test"]
+    volumes:
+      - ".:/code"
+    expose:
+      - 8000
+    env_file:
+      - .env

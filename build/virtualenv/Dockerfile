@@ -10,7 +10,7 @@ COPY python-libs.txt /tmp/
 # Install dependencies
 RUN apk add --no-cache --virtual .build-deps  \
         build-base \
-    && pip install --install-option="--prefix=/install" -r /tmp/python-libs.txt \
+    && pip install --install-option="--prefix=/install" -r /tmp/python-libs-test.txt \
     && apk del .build-deps
 
 FROM base
