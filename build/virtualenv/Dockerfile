@@ -6,6 +6,7 @@ WORKDIR /install
 
 # Add python-libs.txt
 COPY python-libs.txt /tmp/
+COPY python-libs-test.txt /tmp/
 
 # Install dependencies
 RUN apk add --no-cache --virtual .build-deps  \

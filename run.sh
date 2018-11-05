@@ -189,8 +189,7 @@ test() {
         style) test_style "$@";;
         functional) test_functional "$@";;
         unit) test_unit "$@";;
-        ci) test_ci "$@";;
-        *) echo "$0 test [style|functional|unit|ci]"; exit;;
+        *) echo "$0 test [style|functional|unit]"; exit;;
     esac
 }
 
@@ -198,7 +197,7 @@ test_style() {
     echo "Running style checks"
     docker run \
         -v "${PWD}":/code \
-        --rm "$C_PROJECT_NAME"-virtualenv-test:latest \
+        --rm "$C_PROJECT_NAME"-virtualenv:latest \
         flake8 --config=test/style/.flake8 .
 }
 
@@ -220,20 +219,6 @@ test_unit() {
         -v "${PWD}":/code \
         --rm test \
         pytest -p no:cacheprovider test/unit "$@"
-}
-
-test_ci() {
-    test_style
-
-    coverage_clean
-
-    local TEST_STATUS=0
-
-    test_unit --junitxml=./tmp/test/unit/report.xml "$@" || TEST_STATUS=$?
-    test_functional --junitxml=./tmp/test/functional/report.xml "$@" || TEST_STATUS=$?
-
-    coverage_report
-    exit $TEST_STATUS
 }
 
 docker_build() {
