@@ -19,7 +19,7 @@ class BaseSerializer:
                 except ValueError as err:
                     logger.error(err)
                     raise SuspiciousOperation(err)
-            validated_data[key] = value
+            validated_data[key] = abs(value)
         return validated_data
 
 

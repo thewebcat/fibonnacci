@@ -189,7 +189,8 @@ test() {
         style) test_style "$@";;
         functional) test_functional "$@";;
         unit) test_unit "$@";;
-        *) echo "$0 test [style|functional|unit]"; exit;;
+        ci) test_ci "$@" ;;
+        *) echo "$0 test [style|functional|unit|ci]"; exit;;
     esac
 }
 
@@ -219,6 +220,20 @@ test_unit() {
         -v "${PWD}":/code \
         --rm test \
         pytest -p no:cacheprovider test/unit "$@"
+}
+
+test_ci() {
+    test_style
+
+    coverage_clean
+
+    local TEST_STATUS=0
+
+    test_unit "$@" || TEST_STATUS=$?
+    test_functional "$@" || TEST_STATUS=$?
+
+    coverage_report
+    exit $TEST_STATUS
 }
 
 docker_build() {
