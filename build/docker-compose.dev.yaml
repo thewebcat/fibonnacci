@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
 
   test:
-    image: "__C_PROJECT_NAME__-virtualenv:latest"
+    image: "__C_PROJECT_NAME__-virtualenv-test:latest"
     environment:
       <<: *global-environment
     command: ["echo", "test"]

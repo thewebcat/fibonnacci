@@ -6,11 +6,15 @@ WORKDIR /install
 
 # Add python-libs.txt
 COPY python-libs.txt /tmp/
+COPY python-libs-test.txt /tmp/
+
+# Add coverage
+COPY sitecustomize.py /install/lib/python3.6/site-packages/
 
 # Install dependencies
 RUN apk add --no-cache --virtual .build-deps  \
         build-base \
-    && pip install --install-option="--prefix=/install" -r /tmp/python-libs.txt \
+    && pip install --install-option="--prefix=/install" -r /tmp/python-libs-test.txt \
     && apk del .build-deps
 
 FROM base
@@ -23,4 +27,4 @@ COPY --from=builder /install /usr/local
 
 WORKDIR /code/
 
-ENTRYPOINT ["/code/docker-entrypoint.sh"]
+ENV COVERAGE_PROCESS_START /code/.coveragerc
