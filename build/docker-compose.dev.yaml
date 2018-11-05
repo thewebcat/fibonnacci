@@ -15,8 +15,19 @@ x-global-environment: &global-environment
 
 services:
 
+  redis:
+    container_name: __C_PROJECT_NAME__-redis
+    image: 'bitnami/redis:latest'
+    environment:
+      <<: *global-environment
+      ALLOW_EMPTY_PASSWORD: "True"
+    volumes:
+      - ./.docker/redis/data:/var/redis
+    expose:
+      - 6379
+
   nginx:
-#    container_name: __C_PROJECT_NAME__-nginx
+    container_name: __C_PROJECT_NAME__-nginx
     image: nginx:latest
     environment:
       <<: *global-environment

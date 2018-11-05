@@ -22,3 +22,5 @@ RUN apk add --no-cache \
 COPY --from=builder /install /usr/local
 
 WORKDIR /code/
+
+ENTRYPOINT ["/code/docker-entrypoint.sh"]
