@@ -6,6 +6,9 @@ omit =
     */migrations/*
     */config/*
     */test/*
+    manage.py
+    *wsgi.py
+    *urls.py
 
 [html]
 directory = tmp/coverage/report

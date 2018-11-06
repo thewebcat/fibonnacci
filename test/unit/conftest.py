@@ -2,6 +2,7 @@ import os
 import django
 import pytest
 from django.conf import settings
+from django.core.cache import cache
 
 from fibonacci.apps.core.serializers import FiboSerializer
 
@@ -9,6 +10,11 @@ from fibonacci.apps.core.serializers import FiboSerializer
 @pytest.fixture
 def serializer(request):
     return FiboSerializer(data={'from': request.param[0], 'to': request.param[1]})
+
+
+@pytest.fixture(scope='module', autouse=True)
+def redis_clean():
+    cache.clear()
 
 
 # We manually designate which settings we will be using in an environment variable
