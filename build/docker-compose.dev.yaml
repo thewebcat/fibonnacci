@@ -57,7 +57,8 @@ services:
     image: "__C_PROJECT_NAME__-virtualenv-test:latest"
     environment:
       <<: *global-environment
-    command: ["echo", "test"]
+#    command: ["echo", "test"]
+    command: gunicorn -w $GUNICORN_WORKERS_CNT fibonacci.wsgi -b :8000 --reload
     volumes:
       - ".:/code"
     expose:

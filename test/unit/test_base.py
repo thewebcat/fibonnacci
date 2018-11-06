@@ -22,7 +22,7 @@ def test_serializer(serializer):
 
 
 @pytest.mark.parametrize('serializer', [(-1, 144)], indirect=True)
-def test_serializer(serializer):
+def test_serializer_negative(serializer):
     data = serializer.validate()
     assert isinstance(data['from'], int)
     assert data['from'] == 1
@@ -36,4 +36,3 @@ def test_serializer(serializer):
 def test_serializer_failed(serializer):
     with pytest.raises(SuspiciousOperation):
         serializer.validate()
-

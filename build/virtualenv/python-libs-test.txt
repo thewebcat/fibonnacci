@@ -4,3 +4,4 @@ flake8==3.5.0
 mypy==0.641
 pytest==3.9.1
 requests==2.20.0
+pytest-django==3.4.3

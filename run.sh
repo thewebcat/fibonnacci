@@ -177,7 +177,8 @@ coverage_report() {
 }
 
 coverage_clean() {
-    rm -rf "tmp/coverage";
+    docker-compose run \
+        --rm test rm -rf "tmp/coverage";
     mkdir -p "tmp/coverage";
 }
 
@@ -198,7 +199,7 @@ test_style() {
     echo "Running style checks"
     docker run \
         -v "${PWD}":/code \
-        --rm test \
+        --rm "$C_PROJECT_NAME"-virtualenv-test:latest \
         flake8 --config=test/style/.flake8 .
 }
 
