@@ -20,3 +20,7 @@ $ ./run.sh test style
 $ ./run.sh test unit
 $ ./run.sh test functional
 ```
+Running all tests with coverage report:
+``` {.sourceCode .bash}
+$ ./run.sh test ci
+```
